@@ -46,12 +46,5 @@ module IDEF0
       #{output}
       XML
     end
-
-    def to_svg_1
-      <<-XML
-<rect x='#{x1}' y='#{y1}' width='#{width}' height='#{height}' fill='none' stroke='black' />
-<text text-anchor='middle' x='#{x1 + (width / 2)}' y='#{y1 + (height / 2)}'>#{name}</text>
-      XML
-    end
   end
 end
