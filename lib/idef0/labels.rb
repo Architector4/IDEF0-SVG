@@ -46,20 +46,7 @@ module IDEF0
       output
     end
   end
-  def to_svg1
-    output=""+
-      "<rect x='#{x1}' y='#{y1}' width='#{width}' height='#{height}' fill='none' stroke='black' />\n"
-    name_multi = name.split("\n")
-    for i in 1..name_multi.length
-      output+="<text text-anchor='middle' x='#{x1 + (width / 2)}' y='#{y1 + (height / 2) -(name_multi.length-1)/2.0*lineheight+(i-1)*lineheight }'>#{name_multi[i-1]}</text>"
-    end
-    <<-XML
-      #{output}
-    XML
-  end
-
-
-
+  
   class LeftAlignedLabel < Label
     def left_edge
       @point.x
