@@ -11,11 +11,20 @@ module IDEF0
     end
 
     def width
-      [Label.length(@name)+40, [top_side.anchor_count, bottom_side.anchor_count].max*20+20].max
+      name_multi = @name.split("\n")
+      maxlength=0
+      for i in name_multi
+        maxlength=[Label.length(i), maxlength].max
+      end
+      [maxlength+40, [top_side.anchor_count, bottom_side.anchor_count].max*20+20].max
     end
 
     def height
       [60, [left_side.anchor_count, right_side.anchor_count].max*20+20].max
+    end
+
+    def lineheight
+      15
     end
 
     def after?(other)
@@ -27,10 +36,22 @@ module IDEF0
     end
 
     def to_svg
+      output=""+
+"<rect x='#{x1}' y='#{y1}' width='#{width}' height='#{height}' fill='none' stroke='black' />\n"
+      name_multi = name.split("\n")
+      for i in 1..name_multi.length
+        output+="<text text-anchor='middle' x='#{x1 + (width / 2)}' y='#{y1 + (height / 2) -(name_multi.length-1)/2.0*lineheight+(i-1)*lineheight }'>#{name_multi[i-1]}</text>"
+      end
+        <<-XML
+      #{output}
+      XML
+    end
+
+    def to_svg_1
       <<-XML
 <rect x='#{x1}' y='#{y1}' width='#{width}' height='#{height}' fill='none' stroke='black' />
 <text text-anchor='middle' x='#{x1 + (width / 2)}' y='#{y1 + (height / 2)}'>#{name}</text>
-XML
+      XML
     end
   end
 end

@@ -25,9 +25,9 @@ module IDEF0
     end
 
     def initialize(subject, predicate, object)
-      @subject = subject
-      @predicate = predicate
-      @object = object
+      @subject = subject.gsub("\\n", "\n")
+      @predicate = predicate.gsub("\\n", "\n")
+      @object = object.gsub("\\n", "\n")
     end
 
     def to_s
