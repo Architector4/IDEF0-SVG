@@ -30,10 +30,6 @@ module IDEF0
     def extend_bounds(extension)
     end
 
-    def height
-      5+@name.split("\n").length
-    end
-
     def x1
       source_anchor.x
     end
