@@ -20,6 +20,10 @@ module IDEF0
       @side.anchor_point(@sequence)
     end
 
+    def height
+      @name.split("\n").length*lineheight
+    end
+
     def x
       position.x
     end

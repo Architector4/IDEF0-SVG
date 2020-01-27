@@ -1,7 +1,12 @@
 module IDEF0
   class Label
     def self.length(text)
-      text.length * 6
+      #text.length * 6
+      max = 0
+      text.split("\n").each{
+        |t| max=[max,t.length].max
+      }
+      max * 6
     end
 
     def initialize(text, point)
@@ -15,6 +20,7 @@ module IDEF0
 
     def top_edge
       @point.y - 20
+      #@point.y - 5 - @text.split("\n").length*lineheight
     end
 
     def bottom_edge
@@ -41,12 +47,15 @@ module IDEF0
       output=""
       text_multi = @text.split("\n")
       for i in 1..text_multi.length
-        output+="<text text-anchor='#{text_anchor}' x='#{@point.x}' y='#{@point.y-(text_multi.length-1)/1.0*lineheight+(i-1)*lineheight}'>#{text_multi[i-1]}</text>"
+        output+="<text text-anchor='#{text_anchor}'
+        x='#{@point.x}'
+        y='#{@point.y - (text_multi.length - i ) * lineheight}'>
+        #{text_multi[i-1]}</text>"
       end
       output
     end
   end
-  
+
   class LeftAlignedLabel < Label
     def left_edge
       @point.x
